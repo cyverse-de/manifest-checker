@@ -72,18 +72,29 @@ func main() {
 	}
 
 	valid := true
-	for _, li := range listedImages {
-		for _, listedRepoTag := range li.RepoTags {
-			for _, inputImage := range inputMap.Images {
+	for _, inputImage := range inputMap.Images {
+		found := false
+		for _, listedImage := range listedImages {
+			for _, listedRepoTag := range listedImage.RepoTags {
 				if listedRepoTag == inputImage.RepoTag {
-					if li.ID != inputImage.ImageID {
-						fmt.Printf("Docker image ID does not match for %s: %s, %s\n", inputImage.RepoTag, li.ID, inputImage.ImageID)
+					found = true
+					if listedImage.ID != inputImage.ImageID {
+						fmt.Printf(
+							"Docker image ID does not match for %s: %s, %s\n",
+							inputImage.RepoTag,
+							listedImage.ID,
+							inputImage.ImageID,
+						)
 						valid = false
 					}
 				}
 			}
 		}
+		if !found {
+			valid = false
+		}
 	}
+
 	if !valid {
 		os.Exit(-1)
 	}
