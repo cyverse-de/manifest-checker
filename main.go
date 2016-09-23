@@ -91,6 +91,7 @@ func main() {
 			}
 		}
 		if !found {
+			fmt.Printf("Docker image %s was not found", inputImage.RepoTag)
 			valid = false
 		}
 	}
