@@ -15,7 +15,7 @@ import (
 
 var (
 	dockerURI = flag.String("docker-uri", "unix:///var/run/docker.sock", "The docker URI.")
-	input     = flag.String("input", "", "The file to write the JSON to.")
+	input     = flag.String("input", "", "The file to read the JSON from.")
 )
 
 // ImageInfo contains the information about each image that needs to be included
